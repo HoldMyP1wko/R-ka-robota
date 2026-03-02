@@ -22,7 +22,7 @@ Projekt ewoluował od prototypu do finalnego, autonomicznego urządzenia.
 <div align="center">
   <img src="img/a74ab958-c927-45bf-9b66-6eadbd4055fd.jpg" width="30%" alt="Początki budowy">
   <img src="img/a8121084-f509-46b6-8b6c-b2355c03303a.jpg" width="30%" alt="Dalszy etap">
-  <img src="[TUTAJ_WSTAW_LINK_DO_ZDJĘCIA_3]" width="30%" alt="Gotowe ramię">
+  <img src="img/c505a930-f98a-4416-80e2-c823ca916f12.jpg" width="30%" alt="Gotowe ramię">
 </div>
 
 

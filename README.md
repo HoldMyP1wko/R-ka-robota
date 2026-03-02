@@ -1,49 +1,43 @@
-# 🤖 Ramię Robota Sterowane Wizyjnie (Python + LabVIEW)
+# 🤖 Autonomiczne Ramię Robota (Python + LabVIEW na Raspberry Pi)
 
+[![Raspberry Pi](https://img.shields.io/badge/-Raspberry_Pi-C51A4A?logo=Raspberry-Pi&logoColor=white)]()
 [![Python](https://img.shields.io/badge/Python-3.x-blue.svg)](https://www.python.org/)
-[![LabVIEW](https://img.shields.io/badge/LabVIEW-Project-yellow.svg)](https://www.ni.com/pl-pl/shop/labview.html)
-[![Hardware](https://img.shields.io/badge/Hardware-PCA_Board-green.svg)]()
+[![LabVIEW](https://img.shields.io/badge/LabVIEW-Deployed-yellow.svg)](https://www.ni.com/pl-pl/shop/labview.html)
 
-Ten projekt to w pełni funkcjonalne ramię robota, którym można sterować za pomocą gestów/ruchu przechwytywanego przez kamerę w czasie rzeczywistym. System stanowi unikalne połączenie wysokopoziomowej analizy obrazu oraz autorskiego sterowania sprzętem.
+Ten projekt to w pełni funkcjonalne ramię robota sterowane za pomocą gestów/ruchu przechwytywanego przez kamerę w czasie rzeczywistym. Cały system został zaprojektowany jako **urządzenie bezobsługowe (standalone)** działające na komputerze Raspberry Pi, łącząc wysokopoziomową analizę obrazu z autorskim, niskopoziomowym sterowaniem sprzętem.
 
 ## ✨ Główne cechy projektu
 
-* **👀 Sterowanie wizyjne (Python):** Za przechwytywanie i analizę obrazu z kamery odpowiada skrypt napisany w Pythonie. Śledzi on ruch i wysyła odpowiednie komendy sterujące.
-* **⚙️ Autorskie oprogramowanie (LabVIEW):** Główny silnik logiczny projektu został napisany w środowisku LabVIEW.
-* **🛠️ Własne sterowniki płytki PCA:** Zamiast korzystać z gotowych bibliotek, sterowniki do obsługi kontrolera serwomechanizmów (płytka PCA) napisałem **od zera samodzielnie w LabVIEW**, co zapewnia pełną kontrolę nad sprzętem i niskie opóźnienia.
-* **🔗 Płynna komunikacja:** Zoptymalizowana wymiana danych pomiędzy skryptem wizyjnym w Pythonie a programem w LabVIEW.
+* **🍓 W pełni autonomiczne (Standalone):** Całość oprogramowania (skrypty Python oraz silnik LabVIEW) została wdrożona na Raspberry Pi. Projekt działa bezobsługowo – po prostu podłączasz zasilanie, a system wstaje i jest gotowy do pracy.
+* **👀 Sterowanie wizyjne (Python):** Skrypt działający w tle na malince obsługuje kamerę, śledzi ruch i tłumaczy go na polecenia przestrzenne.
+* **⚙️ Autorski silnik i sterowniki (LabVIEW):** Główna logika oraz **napisane od zera sterowniki do płytki PCA** działają natywnie na Raspberry Pi. Zapewnia to stabilną kontrolę nad sprzętem (magistrala I2C) bez polegania na zewnętrznych, gotowych bibliotekach wysokiego poziomu.
+* **🔗 Płynna wymiana danych:** Zoptymalizowana komunikacja wewnątrz Raspberry Pi pomiędzy procesem wizyjnym (Python) a procesem sterującym (LabVIEW).
 
 ---
 
 ## 📸 Historia budowy (Galeria)
 
-Projekt ewoluował od luźnych części aż po w pełni zmontowane ramię. Poniżej znajduje się krótka historia wizualna z procesu konstrukcji:
+Projekt ewoluował od prototypu do finalnego, autonomicznego urządzenia. 
 
 <div align="center">
   <img src="[TUTAJ_WSTAW_LINK_DO_ZDJĘCIA_1]" width="30%" alt="Początki budowy">
-  <img src="[TUTAJ_WSTAW_LINK_DO_ZDJĘCIA_2]" width="30%" alt="Składanie elektroniki">
+  <img src="[TUTAJ_WSTAW_LINK_DO_ZDJĘCIA_2]" width="30%" alt="Podłączanie malinki">
   <img src="[TUTAJ_WSTAW_LINK_DO_ZDJĘCIA_3]" width="30%" alt="Gotowe ramię">
 </div>
 
-*1. Pierwsze przymiarki elementów mechanicznych. | 2. Podłączanie płytki PCA i serwomechanizmów. | 3. Ramię gotowe do testów wizyjnych.*
 
 ---
 
-## 🛠️ Architektura Systemu
+## 🛠️ Architektura Sprzętowa i Systemowa
 
-1. **Kamera** rejestruje obraz.
-2. **Skrypt Python** (moduł wizyjny) analizuje klatki, wykrywa np. pozycję dłoni/markera i tłumaczy je na współrzędne w przestrzeni.
-3. Współrzędne przesyłane są do oprogramowania **LabVIEW**.
-4. **Program LabVIEW** przelicza otrzymane dane na kąty wychylenia poszczególnych przegubów ramienia (kinematyka).
-5. Autorski sterownik (LabVIEW) wysyła sygnały sterujące do **płytki PCA**, która generuje sygnał PWM dla serwomechanizmów.
+Sercem układu jest **Raspberry Pi**, które pełni rolę jednostki centralnej dla całego systemu:
+
+
+
+1. **Kamera na USB/CSI** stale rejestruje obraz i przekazuje go do malinki.
+2. **Skrypt Python** działający jako usługa w tle analizuje klatki i wykrywa pozycję docelową.
+3. Dane są przesyłane lokalnie do **aplikacji LabVIEW** (wdrożonej na Raspberry Pi, np. za pomocą LINX).
+4. **Program LabVIEW** przelicza kinematykę odwrotną i za pomocą autorskiego sterownika wysyła komendy bezpośrednio po szynie **I2C** do **płytki kontrolera PCA**.
+5. Płytka PCA sprzętowo generuje sygnały PWM sterujące poszczególnymi serwomechanizmami ramienia.
 
 ---
-
-## 🚀 Jak uruchomić projekt?
-
-### Wymagania
-* Zainstalowane środowisko **LabVIEW** (wersja [WPISZ WERSJĘ, np. 2020 lub nowsza]).
-* Zasilacz do serwomechanizmów oraz podłączona płytka PCA.
-* **Python 3.x** oraz potrzebne biblioteki. Aby je zainstalować, uruchom w terminalu:
-  ```bash
-  pip install -r requirements.txt

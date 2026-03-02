@@ -20,7 +20,7 @@ Ten projekt to w pełni funkcjonalne ramię robota sterowane za pomocą gestów/
 Projekt ewoluował od prototypu do finalnego, autonomicznego urządzenia. 
 
 <div align="center">
-  <img src="[TUTAJ_WSTAW_LINK_DO_ZDJĘCIA_1]" width="30%" alt="Początki budowy">
+  <img src="img/a74ab958-c927-45bf-9b66-6eadbd4055fd.jpg" width="30%" alt="Początki budowy">
   <img src="[TUTAJ_WSTAW_LINK_DO_ZDJĘCIA_2]" width="30%" alt="Podłączanie malinki">
   <img src="[TUTAJ_WSTAW_LINK_DO_ZDJĘCIA_3]" width="30%" alt="Gotowe ramię">
 </div>
